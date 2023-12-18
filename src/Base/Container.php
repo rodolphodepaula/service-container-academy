@@ -25,9 +25,16 @@ class Container implements ContainerInterface
 
     }
 
+    public function register(string $key, string $target = null): void
+    {
+        $target = $target ?? $key;
+        $this->services[$key] = new ReflectionClass($target);
+    }
+
     private function resolve(string $key): ReflectionClass
     {
         if ($this->has($key)) {
+            var_dump('loaded class.');
             $service = $this->services[$key];
 
             if (is_callable($service)) {
@@ -36,6 +43,7 @@ class Container implements ContainerInterface
 
             return $service;
         }
+        var_dump('new class.');
 
         $this->services[$key] = new ReflectionClass($key);
 
