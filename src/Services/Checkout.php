@@ -2,18 +2,15 @@
 
 namespace Academy\Servicecontainer\Services;
 
-use Academy\Servicecontainer\Providers\StripePaymentProvider;
-use Academy\Servicecontainer\Utils\Http;
+use Academy\Servicecontainer\Providers\interfaces\PaymentProviderContract;
 
 class Checkout
 {
     public function __construct(private string $email, private int $amount)
     { }
 
-    public function handle()
+    public function handle(PaymentProviderContract $paymenProvider)
     {
-        $stripeProvider = new StripePaymentProvider(new Http);
-
-        return $stripeProvider->charge($this->email, $this->amount);
+        return $paymenProvider->charge($this->email, $this->amount);
     }
 }

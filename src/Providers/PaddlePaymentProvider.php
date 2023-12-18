@@ -4,7 +4,7 @@ namespace Academy\Servicecontainer\Providers;
 use Academy\Servicecontainer\Providers\interfaces\PaymentProviderContract;
 use Academy\Servicecontainer\Utils\Http;
 
-class StripePaymentProvider implements PaymentProviderContract
+class PaddlePaymentProvider implements PaymentProviderContract
 {
     //Injeção de Dependência Http
     public function __construct(Http $clientHttp)
@@ -12,6 +12,6 @@ class StripePaymentProvider implements PaymentProviderContract
 
     public function charge(string $email, int $amount): string
     {
-        return "We successfully charge USD {$email} from {$amount}";
+        return "We successfully charge EUR {$email} from {$amount}";
     }
 }
